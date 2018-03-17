@@ -5,7 +5,7 @@ Module.register("MMM-joker-of-the-day", {
 
   // Default module config.
   defaults: {
-    text: "Joker of the day!!!"
+    text: "Joker of the day!"
   },
 
   start: function() {
@@ -37,14 +37,25 @@ Module.register("MMM-joker-of-the-day", {
   getDom: function() {
     let self = this;
     let wrapper = document.createElement("div");
-    let img = document.createElement("div");
-    let name = document.createElement("div")
-    name.innerHTML=self.jokerName
-    if (self.jokerUrl != "") img.innerHTML = '<img src="'+self.jokerUrl+'"/>';
-    wrapper.innerHTML = "<h1>" + this.config.text + "</h1>";
+
+    let h1 = document.createElement("h1")
+    h1.innerHTML = this.config.text;
+    wrapper.appendChild(h1)
+
+    // Image
+    let img = document.createElement("img");
+    if (self.jokerUrl != "") {
+      img.src = self.jokerUrl;
+    }
     wrapper.appendChild(img)
+
+    // Person name
+    let name = document.createElement("div")
+    name.innerHTML = self.jokerName
     wrapper.appendChild(name)
+
     return wrapper;
+  },
 
   },
 
