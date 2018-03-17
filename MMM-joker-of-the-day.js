@@ -23,9 +23,53 @@ Module.register("MMM-joker-of-the-day", {
     if(notification === 'IMAGE_DATA') {
       let self = this;
       self.jokerUrl = payload.url;
-      self.jokerName = payload.name;
+      self.jokerName = self.upgradeName(payload.name);
       self.updateDom();
     }
+  },
+
+  upgradeName: function(originalName) {
+    const upgradeNames =
+      [
+        "Ryddegutten",
+        "Rotekoppen",
+        "Pricess",
+        "Gamer",
+        "Last man standing",
+        "Morgenfugl",
+        "B-menneske",
+        "Leecher",
+        "Piraten",
+        "Nuddelgutt",
+        "Bølla",
+        "Strykejernet",
+        "Bråkmaker",
+        "Terminator",
+        "Hamsterbarnet",
+        "Kodeknuseren",
+        "Proper'n",
+        "Sellout",
+        "Sir",
+        "Backend suger",
+        "Frontend er best",
+        "Java Jesus",
+        "Emacs er best",
+        "Vimkongen",
+      ];
+
+    const randomIndex = Math.floor(Math.random() * upgradeNames.length);
+    let words = originalName.split(" ");
+    let newName = "";
+    let randomUpgrade = "\"" + upgradeNames[randomIndex] + "\"";
+    if (words.length >= 2) {
+      newName = words[0] + " " + randomUpgrade + " ";
+      for (var i = 1; i < words.length; i++) {
+        newName += words[i] + " ";
+      }
+    } else {
+      newName = randomUpgrade + " " + words[0];
+    }
+    return newName;
   },
 
   updateImage: function() {
