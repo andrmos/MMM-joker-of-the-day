@@ -76,8 +76,11 @@ module.exports = NodeHelper.create({
       })
     }
 
+    // Fagutvalget ved Institutt for Informatikk: 2326568395
+    // FU-aktiv: 1785913424994492
+    const groupId = '1785913424994492';
     FB.api(
-      "/2326568395/members?limit=500",
+      "/" + groupId + "/members?limit=500",
       function(response) {
         if (response && !response.error) {
           response.data.forEach(function (element) {

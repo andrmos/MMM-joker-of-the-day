@@ -37,6 +37,7 @@ Module.register("MMM-joker-of-the-day", {
   getDom: function() {
     let self = this;
     let container = document.createElement("div");
+    container.className = "container";
 
     let h1 = document.createElement("h1");
     h1.innerHTML = this.config.text;
@@ -48,18 +49,46 @@ Module.register("MMM-joker-of-the-day", {
     if (self.jokerUrl != "") {
       img.src = self.jokerUrl;
     }
+    img.className = "profileImg";
     container.appendChild(img);
 
     // Person name
     let name = document.createElement("div");
     name.innerHTML = self.jokerName;
+    name.className = "nameText";
     container.appendChild(name);
 
-    let congratz = document.createElement("h2");
-    congratz.innerHTML = "Gratulerer!";
-    container.appendChild(congratz)
+    let congratz = document.createElement("h3");
+    congratz.innerHTML = self.getCongratzText();
+    congratz.className = "congratzText";
+    container.appendChild(congratz);
 
     return container;
+  },
+
+  getCongratzText: function() {
+    const textOptions =
+      [
+        "Skikkelig heldig",
+        "Du er kul",
+        "1/800 sjanse",
+        "rått!!!!!",
+        "Damn baby",
+        "Du er hot",
+        "Wow",
+        "Lesesalens gullbarn",
+        "Favoritten",
+        "Neste Douglas Rogers",
+        "Har du betalt regningene dine?",
+        "Premie: en kopp kaffe",
+        "Håper du kommer på eksamensfesten",
+        "Du fortjener en pause",
+        "Ta livet med ro"
+      ];
+    const randomIndex = Math.floor(Math.random() * textOptions.length);
+    const choice = textOptions[randomIndex];
+    const text = "Gratulerer! " + choice;
+    return text
   },
 
   getStyles: function() {
