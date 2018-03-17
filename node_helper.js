@@ -1,7 +1,12 @@
 var NodeHelper = require('node_helper');
 var request = require('request');
 var FB = require('fb');
+var fs = require('fs');
 FB.setAccessToken('155684848748|LeXWXguujGYMY2QJkF_DCii3hJ0');
+var fileNameLastJoker = "./modules/MMM-joker-of-the-day/lastJoker.txt"
+
+var moment = require('moment');
+moment().format();
 
 module.exports = NodeHelper.create({
   start: function() {
@@ -13,27 +18,47 @@ module.exports = NodeHelper.create({
   socketNotificationReceived: function(notification, payload) {
     var self = this;
     if(notification === 'GET_IMAGE') {
-      this.getImage();
+      console.log(process.cwd())
+      if (fs.existsSync(fileNameLastJoker)) {
+        let data = fs.readFileSync(fileNameLastJoker,{encoding:'utf8'});
+        let mdate = fs.statSync(fileNameLastJoker).mtime
+        let diffDays = moment().diff(mdate, 'days')
+        if (moment().dayOfYear() != moment(mdate).dayOfYear()) {
+            this.getnewPerson();
+        } else {
+          let dataParsed = JSON.parse(data)
+          console.log(dataParsed)
+          self.sendResponse(dataParsed.url, dataParsed.name);
+        }
+
+      } else {
+        this.getnewPerson();
+      }
+
     }
   },
 
-  getImage: function() {
+  sendResponse: function (url,name) {
+    var self = this;
+    self.sendSocketNotification('IMAGE_DATA', { url: url, name: name });
+  },
+
+  getnewPerson: function() {
     var self = this;
     var jokers = [];
     const url = '';
 
-    let getImgUrl = function(id,name) {
+    let getPersonData = function(id,name) {
       FB.api(
-        '/' + id + '/picture?redirect=false&type=large',
-        'GET',
-        {},
+        '/' + id + '/picture?redirect=false&type=large', 'GET', {},
         function(response) {
-          self.sendSocketNotification('IMAGE_DATA', { url: response.data.url, name: name });
+          fs.writeFileSync(fileNameLastJoker, JSON.stringify({name:name, url:response.data.url}) )
+          self.sendResponse(response.data.url, name);
         }
       );
     }
 
-    let getPage = function(url) {
+    let getNextPage = function(url) {
       request({url: url, method: 'GET'}, function(err, res, message) {
         if (message && !err) {
 
@@ -42,10 +67,10 @@ module.exports = NodeHelper.create({
             jokers.push(element);
           });
           if (json.paging.next) {
-            getPage(json.paging.next)
+            getNextPage(json.paging.next)
           } else {
             var randomId = Math.floor(Math.random() * jokers.length);
-            getImgUrl(jokers[randomId].id,jokers[randomId].name)
+            getPersonData(jokers[randomId].id,jokers[randomId].name)
           }
         }
       })
@@ -59,7 +84,10 @@ module.exports = NodeHelper.create({
             jokers.push(element);
           });
           if (response.paging.next) {
-            getPage(response.paging.next)
+            getNextPage(response.paging.next) 
+          } else {
+            var randomId = Math.floor(Math.random() * jokers.length);
+            getPersonData(jokers[randomId].id,jokers[randomId].name)
           }
         }
         if (response.error) {
@@ -69,10 +97,10 @@ module.exports = NodeHelper.create({
       }
     );
   },
-
+  /*
   setNextUpdate: function(headers) {
     var cacheControlHeader = headers['cache-control'];
     var maxAge = cacheControlHeader.slice(cacheControlHeader.indexOf('=') + 1);
     this.config.updateInterval = maxAge * 1000;
-  }
+  } */
 });
