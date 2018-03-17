@@ -40,6 +40,7 @@ Module.register("MMM-joker-of-the-day", {
 
     let h1 = document.createElement("h1")
     h1.innerHTML = this.config.text;
+    h1.className = 'header'
     wrapper.appendChild(h1)
 
     // Image
@@ -57,6 +58,10 @@ Module.register("MMM-joker-of-the-day", {
     return wrapper;
   },
 
+  getStyles: function() {
+    return [
+      'styles.css'
+    ];
   },
 
 });
