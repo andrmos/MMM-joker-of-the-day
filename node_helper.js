@@ -26,15 +26,15 @@ module.exports = NodeHelper.create({
     const url = '';
 
     let getImgUrl = function(id,name) {
-            FB.api(
-        '/'+id+'/picture?redirect=false',
-        'GET',
-        {},
-        function(response) {
-            console.log(response.data.url)
-            self.sendSocketNotification('IMAGE_DATA', { url: response.data.url, name: name });
-        }
-      );
+      FB.api(
+  '/'+id+'/picture?redirect=false&type=large',
+  'GET',
+  {},
+  function(response) {
+      console.log(response.data.url)
+      self.sendSocketNotification('IMAGE_DATA', { url: response.data.url, name: name });
+  }
+);
 
     }
 
@@ -65,7 +65,7 @@ module.exports = NodeHelper.create({
           //2326568395
           console.log("gasadfsdafdas")
           FB.api(
-              "/2326568395/members?limit=100",
+              "/2326568395/members?limit=500",
               function (response) {
                 if (response && !response.error) {
 

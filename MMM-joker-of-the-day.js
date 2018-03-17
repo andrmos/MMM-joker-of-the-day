@@ -13,14 +13,10 @@ Module.register("MMM-joker-of-the-day",{
     self.jokerUrl=""
     self.jokerName=""
 
-    self.updateDom();
-    self.requstImage();
-    setInterval(function() {
-      self.requstImage();
-    }, 200000000);
+    self.updateImage();
     setInterval(function() {
       self.updateDom();
-    }, 5000);
+    }, 200000000);
   },
 
   socketNotificationReceived: function(notification, payload) {
@@ -35,9 +31,7 @@ self.jokerName=payload.name
     }
   },
 
-  requstImage: function () {
-    console.log("------------")
-    let self = this;
+  updateImage: function() {
     this.sendSocketNotification('GET_IMAGE', {
       meldingTilSondre: "Takk for syltetoyglasset!!!",
       config: this.config
@@ -46,6 +40,8 @@ self.jokerName=payload.name
 
   getDom: function () {
 
+    console.log("------------")
+    let self = this;
     console.log('getDom()');
     let wrapper = document.createElement("div");
     let img = document.createElement("div");
