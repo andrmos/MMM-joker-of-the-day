@@ -1,7 +1,7 @@
 var NodeHelper = require('node_helper');
 var request = require('request');
 var FB = require('fb');
-FB.setAccessToken('');
+FB.setAccessToken('155684848748|LeXWXguujGYMY2QJkF_DCii3hJ0');
 
 module.exports = NodeHelper.create({
   start: function() {
@@ -68,7 +68,6 @@ module.exports = NodeHelper.create({
               "/2326568395/members?limit=500",
               function (response) {
                 if (response && !response.error) {
-
                   response.data.forEach(function(element) {
                     jokers.push(element);
                   });

@@ -45,10 +45,13 @@ self.jokerName=payload.name
     console.log('getDom()');
     let wrapper = document.createElement("div");
     let img = document.createElement("div");
-    img.innerHTML ="<img src='fdsafadsfdas' />"
+    let name = document.createElement("div")
+    name.innerHTML=self.jokerName
+    //img.innerHTML ="<img src='fdsafadsfdas' />"
     if (self.jokerUrl!="") img.innerHTML = '<img src="'+self.jokerUrl+'"/>';
     wrapper.innerHTML = "<h1>" + this.config.text + "</h1>";
     wrapper.appendChild(img)
+    wrapper.appendChild(name)
     return wrapper;
 
   },
