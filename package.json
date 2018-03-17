@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/andrmos/MMM-joker-of-the-day#readme",
   "dependencies": {
-    "fb": "^2.0.0"
+    "fb": "^2.0.0",
+    "fs": "0.0.1-security",
+    "moment": "^2.21.0"
   }
 }
