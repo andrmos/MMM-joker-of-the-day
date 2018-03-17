@@ -48,7 +48,4 @@ Module.register("MMM-joker-of-the-day", {
 
   },
 
-  getTemplateData: function() {
-    return this.config
-  }
 });
