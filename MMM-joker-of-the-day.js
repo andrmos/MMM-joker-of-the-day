@@ -137,7 +137,7 @@ Module.register("MMM-joker-of-the-day", {
 
   getStyles: function() {
     return [
-      'styles.css'
+      'jokerStyles.css'
     ];
   },
 
