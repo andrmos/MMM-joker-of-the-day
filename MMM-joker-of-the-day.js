@@ -16,7 +16,7 @@ Module.register("MMM-joker-of-the-day", {
     self.updateImage();
     setInterval(function() {
       self.updateDom();
-    }, 200000000);
+    }, 1000*60*60*8);
   },
 
   socketNotificationReceived: function(notification, payload) {
