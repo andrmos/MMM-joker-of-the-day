@@ -18,7 +18,6 @@ module.exports = NodeHelper.create({
   socketNotificationReceived: function(notification, payload) {
     var self = this;
     if(notification === 'GET_IMAGE') {
-      console.log(process.cwd())
       if (fs.existsSync(fileNameLastJoker)) {
         let data = fs.readFileSync(fileNameLastJoker,{encoding:'utf8'});
         let mdate = fs.statSync(fileNameLastJoker).mtime
@@ -27,7 +26,6 @@ module.exports = NodeHelper.create({
             this.getnewPerson();
         } else {
           let dataParsed = JSON.parse(data)
-          console.log(dataParsed)
           self.sendResponse(dataParsed.url, dataParsed.name);
         }
 
