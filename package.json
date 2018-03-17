@@ -1,0 +1,22 @@
+{
+  "name": "joker",
+  "version": "1.0.0",
+  "description": "Magic Mirror module that displays the joker of the day.",
+  "main": "MMM-joker-of-the-day.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andrmos/MMM-joker-of-the-day.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andrmos/MMM-joker-of-the-day/issues"
+  },
+  "homepage": "https://github.com/andrmos/MMM-joker-of-the-day#readme",
+  "dependencies": {
+    "fb": "^2.0.0"
+  }
+}
